@@ -1,3 +1,4 @@
+#!/usr/bin/groovy
 node('maven') {
     stage 'Checkout'
     checkout scm
