@@ -1,0 +1,28 @@
+node('maven') {
+    stage 'Checkout'
+    git url: 'https://github.com/rupalibehera/jboss-eap-quickstarts.git', branch: '7.0.x-develop'
+
+    stage 'Build'
+    sh 'cd helloworld && mvn clean'
+    sh 'cd helloworld && mvn compile'
+
+    stage 'Run Unit Tests'
+    sh 'cd helloworld && mvn test'
+
+    stage 'Package'
+    sh 'cd helloworld && mvn package'
+
+    stage 'Archive artifact'
+    sh 'mkdir -p deployments && cp helloworld/target/*.war deployments'
+    archive 'helloworld/target/*.war'
+
+    stage 'Create Image'
+    sh 'oc login https://10.1.2.2:8443 -u admin -p admin --insecure-skip-tls-verify=true'
+    sh 'oc new-project helloworldproject'
+    sh 'oc project helloworldproject'
+    sh 'oc process -f helloworld/jboss-eap64-binary-build.json | oc create -f -'
+    sh 'oc start-build eap-helloworld-app --from-dir=.'
+
+    stage 'Deploy to Dev Env'
+    
+}
