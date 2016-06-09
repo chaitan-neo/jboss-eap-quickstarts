@@ -1,7 +1,7 @@
 node('maven') {
     stage 'Checkout'
     checkout scm
-    
+
     stage 'Build'
     sh 'cd helloworld && mvn clean'
     sh 'cd helloworld && mvn compile'
@@ -20,7 +20,7 @@ node('maven') {
     sh 'oc login https://10.1.2.2:8443 -u admin -p admin --insecure-skip-tls-verify=true'
     sh 'oc new-project helloworldproject'
     sh 'oc project helloworldproject'
-    sh 'oc process -f helloworld/jboss-eap64-binary-build.json | oc create -f -'
+    sh 'oc process -f helloworld/jboss-eap70-binary-build.json | oc create -f -'
     sh 'oc start-build eap-helloworld-app --from-dir=.'
 
     stage 'Deploy to Dev Env'
