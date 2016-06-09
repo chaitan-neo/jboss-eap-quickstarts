@@ -1,7 +1,7 @@
 node('maven') {
     stage 'Checkout'
-    git url: 'https://github.com/rupalibehera/jboss-eap-quickstarts.git', branch: '7.0.x-develop'
-
+    checkout scm
+    
     stage 'Build'
     sh 'cd helloworld && mvn clean'
     sh 'cd helloworld && mvn compile'
