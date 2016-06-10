@@ -25,6 +25,6 @@ node('maven') {
     sh 'oc start-build eap-helloworld-app --from-dir=.'
 
     stage 'Deploy'
-    sh 'oc new-app jboss-eap70-deploy.json'
+    sh 'oc new-app helloworld/jboss-eap70-deploy.json'
     
 }
