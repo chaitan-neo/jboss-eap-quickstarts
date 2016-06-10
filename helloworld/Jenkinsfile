@@ -22,7 +22,7 @@ node('maven') {
     sh 'oc new-project helloworldproject'
     sh 'oc project helloworldproject'
     sh 'oc process -f helloworld/jboss-eap70-binary-build.json | oc create -f -'
-    sh 'oc start-build eap-helloworld-app --from-dir=.'
+    sh 'oc start-build eap-helloworld-app --from-dir=. ; sleep 4m;'
 
     stage 'Deploy'
     sh 'oc new-app helloworld/jboss-eap70-deploy.json'
