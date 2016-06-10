@@ -2,7 +2,7 @@
     "kind": "Template",
     "apiVersion": "v1",
     "metadata": {
-        "name": "jboss-eap64-binary-build",
+        "name": "jboss-eap70-binary-build",
         "creationTimestamp": null,
         "annotations": {
             "description": "Application template for EAP 7 applications built using Binary build.",
@@ -79,7 +79,7 @@
         }
     ],
     "labels": {
-        "template": "jboss-eap64-binary-build",
+        "template": "jboss-eap70-binary-build",
         "xpaas": "1.2.0"
     }
 }

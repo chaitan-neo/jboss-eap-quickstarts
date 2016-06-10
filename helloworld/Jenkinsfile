@@ -18,12 +18,13 @@ node('maven') {
     archive 'helloworld/target/*.war'
 
     stage 'Create Image'
-    sh 'oc login https://10.1.2.2:8443 -u admin -p admin --insecure-skip-tls-verify=true'
+    sh 'oc login https://kubernetes.default -u admin -p admin --insecure-skip-tls-verify=true'
     sh 'oc new-project helloworldproject'
     sh 'oc project helloworldproject'
     sh 'oc process -f helloworld/jboss-eap70-binary-build.json | oc create -f -'
     sh 'oc start-build eap-helloworld-app --from-dir=.'
 
-    stage 'Deploy to Dev Env'
+    stage 'Deploy'
+    sh 'oc new-app jboss-eap70-deploy.json'
     
 }
