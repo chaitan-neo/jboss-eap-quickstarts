@@ -14,7 +14,7 @@ node('maven') {
     sh 'cd helloworld && mvn package'
 
     stage 'Archive artifact'
-    sh 'mkdir -p deployments && cp helloworld/target/*.war deployments'
+    sh 'mkdir -p artifacts/deployments && cp helloworld/target/*.war artifacts/deployments'
     archive 'helloworld/target/*.war'
 
     stage 'Create Image'
@@ -22,7 +22,7 @@ node('maven') {
     sh 'oc new-project helloworldproject'
     sh 'oc project helloworldproject'
     sh 'oc process -f helloworld/jboss-eap70-binary-build.json | oc create -f -'
-    sh 'oc start-build eap-helloworld-app --from-dir=. ; sleep 4m;'
+    sh 'oc start-build eap-helloworld-app --from-dir=artifacts/'
 
     stage 'Deploy'
     sh 'oc new-app helloworld/jboss-eap70-deploy.json'
