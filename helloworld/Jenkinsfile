@@ -4,8 +4,7 @@ node('maven') {
     checkout scm
 
     stage 'Build'
-    sh 'cd helloworld && mvn clean'
-    sh 'cd helloworld && mvn compile'
+    sh 'cd helloworld && mvn clean compile'
 
     stage 'Run Unit Tests'
     sh 'cd helloworld && mvn test'
